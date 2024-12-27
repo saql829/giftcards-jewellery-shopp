@@ -1,22 +1,32 @@
+// src/utils/api.js
+
 import axios from 'axios';
 
-const BASE_URL = 'https://aptech.heritagejewels.com.pk/microservices';
-
-export const api = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+// Create axios instance for API requests
+const api = axios.create({
+    baseURL: 'https://your-api-url.com',  // Replace with your API URL
 });
 
-// Authentication API
-export const login = (credentials) => api.post('/login.php', credentials);
+// Function to get all cards
+export const getAllCards = async () => {
+    const response = await api.get('/giftcards');
+    return response.data;
+};
 
-// Card APIs
-export const getAllCards = () => api.get('/giftcard.php');
-export const getSingleCard = (cardNumber) => api.get(`/singlecard.php?cardnumber=${cardNumber}`);
-export const chargeCard = (data) => api.post('/addtransaction.php', data);
+// Function to fetch balance of a specific card
+export const fetchCardBalance = async (cardNumber) => {
+    const response = await api.get(`/card/${cardNumber}`);  // Adjust URL as needed
+    return response.data.balance;
+};
 
-// Transaction APIs
-export const getAllTransactions = () => api.get('/transaction.php');
-export const getUserTransactions = (userId) => api.get(`/transaction.php?userid=${userId}`);
+// Function to fetch transactions for a user
+export const fetchTransactions = async (userId) => {
+    const response = await api.get(`/transactions/${userId}`);  // Adjust URL as needed
+    return response.data;
+};
+
+// Function to charge a card
+export const chargeCard = async (cardNumber, amount) => {
+    const response = await api.post('/charge', { cardNumber, amount });
+    return response.data;
+};

@@ -1,42 +1,23 @@
-import { createContext, useState, useContext } from 'react';
-import axios from 'axios';
+// src/context/AuthContext.js
 
+import React, { createContext, useContext, useState } from 'react';
+
+// Create Context
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userRole, setUserRole] = useState('');
-    
-    const login = async (username, password) => {
-        try {
-            const response = await axios.post('https://aptech.heritagejewels.com.pk/microservices/login.php', {
-                username,
-                password
-            });
-            const data = response.data;
-            if (data.success) {
-                setIsAuthenticated(true);
-                setUserRole(data.role); // Save the role (ShopUser or Admin)
-                return true;
-            } else {
-                throw new Error('Login failed');
-            }
-        } catch (err) {
-            console.error(err.message);
-            return false;
-        }
-    };
+// Custom hook to access auth context
+export const useAuth = () => useContext(AuthContext);
 
-    const logout = () => {
-        setIsAuthenticated(false);
-        setUserRole('');
-    };
+// Auth Provider component
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+
+    const login = (userData) => setUser(userData);  // Set user data on login
+    const logout = () => setUser(null);  // Clear user data on logout
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, userRole, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
-
-export const useAuth = () => useContext(AuthContext);
