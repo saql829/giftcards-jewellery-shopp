@@ -1,56 +1,58 @@
+// src/components/AppRoutes.js
+
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Login from './auth/Login';
-import Dashboard from './shopUser/Dashboard';
-import CardBalance from './shopUser/CardBalance';
-import ChargeCard from './shopUser/ChargeCard';
-import Transactions from './shopUser/Transactions';
-import AllCards from './superAdmin/AllCards';
-import AllTransactions from './superAdmin/AllTransactions';
-import UserManagement from './superAdmin/UserManagement';
-import ProtectedRoute from './auth/ProtectedRoute';  // Protected routes for authentication
+import { Routes, Route } from 'react-router-dom'; // Importing Routes and Route for routing
+import Login from '../components/auth/Login'; // Import Login component
+import Dashboard from '../components/shopUser/Dashboard'; // Import Dashboard component
+import CardBalance from '../components/shopUser/CardBalance'; // Import CardBalance component
+import ChargeCard from '../components/shopUser/ChargeCard'; // Import ChargeCard component
+import Transactions from '../components/shopUser/Transactions'; // Import Transactions component
+import AllCards from '../components/superAdmin/AllCards'; // Import AllCards component
+import AllTransactions from '../components/superAdmin/AllTransactions'; // Import AllTransactions component
+import UserManagement from '../components/superAdmin/UserManagement'; // Import UserManagement component
+import ProtectedRoute from './auth/ProtectedRoute'; // Import ProtectedRoute for role-based routing
 
 const AppRoutes = () => {
     return (
         <Routes>
             {/* Login Route */}
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             
             {/* Shop User Routes */}
             <Route path="/dashboard" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="ShopUser">
                     <Dashboard />
                 </ProtectedRoute>
             } />
             <Route path="/card-balance" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="ShopUser">
                     <CardBalance />
                 </ProtectedRoute>
             } />
             <Route path="/charge-card" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="ShopUser">
                     <ChargeCard />
                 </ProtectedRoute>
             } />
             <Route path="/transactions" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="ShopUser">
                     <Transactions />
                 </ProtectedRoute>
             } />
-
+            
             {/* Super Admin Routes */}
             <Route path="/all-cards" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="SuperAdmin">
                     <AllCards />
                 </ProtectedRoute>
             } />
             <Route path="/all-transactions" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="SuperAdmin">
                     <AllTransactions />
                 </ProtectedRoute>
             } />
             <Route path="/user-management" element={
-                <ProtectedRoute>
+                <ProtectedRoute role="SuperAdmin">
                     <UserManagement />
                 </ProtectedRoute>
             } />

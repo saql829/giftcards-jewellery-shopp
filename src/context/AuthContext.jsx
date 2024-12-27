@@ -12,8 +12,13 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
-    const login = (userData) => setUser(userData);  // Set user data on login
-    const logout = () => setUser(null);  // Clear user data on logout
+    const login = (userData) => {
+        setUser(userData);  // Set user data on login
+    };
+
+    const logout = () => {
+        setUser(null);  // Clear user data on logout
+    };
 
     return (
         <AuthContext.Provider value={{ user, login, logout }}>
