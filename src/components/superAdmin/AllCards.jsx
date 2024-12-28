@@ -7,7 +7,9 @@ const AllCards = () => {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await axios.get('https://aptech.heritagejewels.com.pk/microservices/allcards.php');
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy URL
+                const apiUrl = 'https://aptech.heritagejewels.com.pk/microservices/allcards.php'; // Original API URL
+                const response = await axios.get(proxyUrl + apiUrl);  // Using proxy for CORS
                 setCards(response.data);
             } catch (err) {
                 console.error('Error fetching cards:', err);

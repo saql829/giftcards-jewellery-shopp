@@ -11,12 +11,14 @@ import AllCards from '../components/superAdmin/AllCards'; // Import AllCards com
 import AllTransactions from '../components/superAdmin/AllTransactions'; // Import AllTransactions component
 import UserManagement from '../components/superAdmin/UserManagement'; // Import UserManagement component
 import ProtectedRoute from './auth/ProtectedRoute'; // Import ProtectedRoute for role-based routing
+import ShopUserDashboard from '../components/shopUser/Dashboard';
 
 const AppRoutes = () => {
     return (
         <Routes>
             {/* Login Route */}
             <Route path="/" element={<Login />} />
+            <Route path='/dashboard' element={<ShopUserDashboard/>}/>
             
             {/* Shop User Routes */}
             <Route path="/dashboard" element={

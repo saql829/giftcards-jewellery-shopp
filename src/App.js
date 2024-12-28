@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import AppRoutes from './components/AppRoutes'; // Import AppRoutes for routing
+//import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
     return (

@@ -13,10 +13,20 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         
-        // Validate login (Example validation)
-        if (username === 'admin' && password === '123') {
-            // Simulate a successful login
-            const userData = { username: 'admin', role: 'SuperAdmin' }; // Example user data
+        // Validate login with multiple usernames
+        if (
+            (username === 'admin' && password === '123') ||
+            (username === 'shop1' && password === '123') ||
+            (username === 'shop2' && password === '123')
+        ) {
+            // Simulate a successful login with user data
+            let userData;
+            if (username === 'admin') {
+                userData = { username: 'admin', role: 'SuperAdmin' }; // Example user data for admin
+            } else if (username === 'shop1' || username === 'shop2') {
+                userData = { username, role: 'Shop' }; // Example user data for shops
+            }
+
             login(userData); // Update the user state in context
 
             // Redirect to dashboard after successful login

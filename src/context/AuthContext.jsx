@@ -1,23 +1,29 @@
-// src/context/AuthContext.js
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
-import React, { createContext, useContext, useState } from 'react';
-
-// Create Context
 const AuthContext = createContext();
 
-// Custom hook to access auth context
 export const useAuth = () => useContext(AuthContext);
 
-// Auth Provider component
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
+    // Check for user session on page load (optional)
+    useEffect(() => {
+        const savedUser = localStorage.getItem('user'); // Or use a cookie/session
+        if (savedUser) {
+            setUser(JSON.parse(savedUser)); // If user found in localStorage, set it in state
+        }
+    }, []);
+
     const login = (userData) => {
-        setUser(userData);  // Set user data on login
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData)); // Save to localStorage (or sessionStorage)
     };
 
     const logout = () => {
-        setUser(null);  // Clear user data on logout
+        setUser(null);
+        localStorage.removeItem('user'); // Remove from localStorage
     };
 
     return (
